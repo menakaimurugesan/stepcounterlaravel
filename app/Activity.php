@@ -19,7 +19,7 @@ class Activity extends Model
      */
     public function user()
     {
-        return $this->belongsTo(Activity::class);
+        return $this->belongsTo(user::class);
     }
 	
 	
