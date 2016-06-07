@@ -14,13 +14,14 @@ class CreateActivitiesTable extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->increments('id');
-			$table->integer('user_id')->index();
+			$table->integer('user_id')->unsigned();
             $table->date('date');
 			$table->integer('steps');
-            $table->timestamps();
-        });
-		// Foreign Key
-        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps();			
+		});
+		Schema::table('activities', function($table) {
+			$table->foreign('user_id')->references('id')->on('users');
+		});
     }
 
     /**
