@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 /**
  * Display All Activities
  */
-Route::get('/', function () {
+Route::get('/l', function () {
 	$activities = Activity::orderBy('date', 'asc')->get();
 
     return view('activities', [
@@ -26,7 +26,19 @@ Route::get('/', function () {
    
 });
 
+use Carbon\Carbon;
 
+Route::get('/', function () {
+    	$activities = Activity::select(DB::raw('month, MAX(sumsteps) as maxsteps, T.user_id'))
+		->from(DB::raw('(SELECT MONTH(date) as month, SUM(steps) as sumsteps, user_id from activities where date between date_sub(now(),INTERVAL 1 YEAR) and now() group by month, user_id order by SUM(steps) desc) as T'))
+		->groupBy ('month')		
+		-> get();	
+	
+	return view('activities', [
+        'activities' => $activities
+    ]);
+
+});
 /**
  * Add A New Activity
  */
