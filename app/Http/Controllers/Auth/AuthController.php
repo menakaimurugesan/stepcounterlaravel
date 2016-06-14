@@ -54,6 +54,7 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
     }
+	protected $loginPath = 'Auth/login';
 
     /**
      * Create a new user instance after a valid registration.

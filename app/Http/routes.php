@@ -13,32 +13,21 @@
 
 use App\Activity;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-/**
- * Display All Activities
- */
-Route::get('/l', function () {
-	$activities = Activity::orderBy('date', 'asc')->get();
+Route::get('activities/{choice}', 'ActivityController@showLeaderboard');
+Route::get('/', 'ActivityController@showLeaderboardStart');
 
-    return view('activities', [
-        'activities' => $activities
-    ]);
-   
-});
+// Authentication routes...
+Route::get('Auth/login', 'Auth\AuthController@getLogin');
+Route::post('Auth/login', 'Auth\AuthController@postLogin');
+Route::get('Auth/logout', 'Auth\AuthController@getLogout');
 
-use Carbon\Carbon;
+// Registration routes...
+Route::get('Auth/register', 'Auth\AuthController@getRegister');
+Route::post('Auth/register', 'Auth\AuthController@postRegister');
 
-Route::get('/', function () {
-    	$activities = Activity::select(DB::raw('month, MAX(sumsteps) as maxsteps, T.user_id'))
-		->from(DB::raw('(SELECT MONTH(date) as month, SUM(steps) as sumsteps, user_id from activities where date between date_sub(now(),INTERVAL 1 YEAR) and now() group by month, user_id order by SUM(steps) desc) as T'))
-		->groupBy ('month')		
-		-> get();	
-	
-	return view('activities', [
-        'activities' => $activities
-    ]);
 
-});
 /**
  * Add A New Activity
  */

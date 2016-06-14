@@ -12,6 +12,7 @@
 			<table class="table table-striped activity-table">
 				<!-- Table Headings -->
 				<thead>
+					<th>Year</th>
 					<th>Month</th>
 					<th>User</th>
 					<th>Steps</th>
@@ -21,21 +22,27 @@
 				<tbody>
 					@foreach ($activities as $activity)
 						<tr>
+							<!-- Activity Year -->							
+
+							<td class="table-text">
+								<div>{{ $activity->year }}</div>
+							</td>
+							
 							<!-- Activity Month -->							
 
 							<td class="table-text">
-								<div>{{ date("F", mktime(0, 0, 0, $activity->month, 10)) }}</div>
+								<div>{{ $activity->Month }}</div>
 							</td>
 							
 							<!-- User -->
 							
 							<td class="table-text">
-								<div>{{ $activity->user->name }}</div>
+								<div>{{ $activity->UserName }}</div>
 							</td>
 
 							<!-- Steps count -->
 							<td class="table-text">
-								<div>{{ $activity->maxsteps }}</div>
+								<div>{{ $activity->TotalSteps }}</div>
 							</td>
 
 							<td>
