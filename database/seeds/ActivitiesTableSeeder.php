@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\carbon;
+use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Database\Eloquent\Model;
 
