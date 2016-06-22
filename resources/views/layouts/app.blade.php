@@ -48,11 +48,11 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">              
 				<!-- Left Side Of Navbar -->          
 				<ul class="nav navbar-nav">
-					 <li {{{ (Request::is('activities/1') ? 'class=active' : '') }}}><a href="{{ url('/activities/1') }}">OverAll</a></li>
-					 <li {{{ (Request::is('activities/2') ? 'class=active' : '') }}}><a href="{{ url('/activities/2') }}">7 days</a></li>
-					 <li {{{ (Request::is('activities/3') ? 'class=active' : '') }}}><a href="{{ url('/activities/3') }}">30 days</a></li> 
-					 <li {{{ (Request::is('activities/4') ? 'class=active' : '') }}}><a href="{{ url('/activities/4') }}">Weekly</a></li> 
-					 <li {{{ (Request::is('activities/5') ? 'class=active' : '') }}}><a href="{{ url('/activities/5') }}">Monthly</a></li> 
+					 <li {{{ (Request::is('leaderboard/1') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/1') }}">OverAll</a></li>
+					 <li {{{ (Request::is('leaderboard/2') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/2') }}">7 days</a></li>
+					 <li {{{ (Request::is('leaderboard/3') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/3') }}">30 days</a></li> 
+					 <li {{{ (Request::is('leaderboard/4') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/4') }}">Weekly</a></li> 
+					 <li {{{ (Request::is('leaderboard/5') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/5') }}">Monthly</a></li>
 				</ul>
 
                 <!-- Right Side Of Navbar -->

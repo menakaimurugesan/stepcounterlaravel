@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 //Leaderboard routes...
-Route::get('activities/{choice}', 'ActivityController@showLeaderboard');
+Route::get('leaderboard/{choice}', 'LeaderboardController@showLeaderboard');
 Route::get('/', function(){return view('welcome');});
 
 // Authentication routes...
