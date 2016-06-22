@@ -52,7 +52,7 @@
 					 <li {{{ (Request::is('leaderboard/2') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/2') }}">7 days</a></li>
 					 <li {{{ (Request::is('leaderboard/3') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/3') }}">30 days</a></li> 
 					 <li {{{ (Request::is('leaderboard/4') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/4') }}">Weekly</a></li> 
-					 <li {{{ (Request::is('leaderboard/5') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/5') }}">Monthly</a></li>
+					 <li {{{ (Request::is('leaderboard/5') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/5') }}">Monthly</a></li>					 
 				</ul>
 
                 <!-- Right Side Of Navbar -->
@@ -61,17 +61,17 @@
                     @if (Auth::guest())
                         <li><a href="{{ url('Auth/login') }}">Login</a></li>
                         <li><a href="{{ url('Auth/register') }}">Register</a></li>
-                    @else
+                    @else						
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/Auth/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-								<li><a href="{{ url('/activity') }}"><i class="fa fa-btn fa-sign-out"></i>My Activities</a></li>
+                            <ul class="dropdown-menu" role="menu">								
+                                <li><a href="{{ url('/Auth/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>								
                             </ul>
                         </li>
+						<li {{{ (Request::is('/activity') ? 'class=active' : '') }}}><a href="{{ url('/activity') }}">My Activities</a></li>
                     @endif
                 </ul>
             </div>
