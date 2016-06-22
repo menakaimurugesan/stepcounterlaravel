@@ -18,6 +18,7 @@ use App\Http\Controllers\Controller;
 //Leaderboard routes...
 Route::get('leaderboard/{choice}', 'LeaderboardController@showLeaderboard');
 Route::get('/', function(){return view('welcome');});
+Route::Resource('activity','ActivityController');
 
 // Authentication routes...
 Route::get('Auth/login', 'Auth\AuthController@getLogin');
