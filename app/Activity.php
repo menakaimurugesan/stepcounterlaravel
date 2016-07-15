@@ -27,7 +27,7 @@ class Activity extends Model
 		switch($choice)
 		{
 			case '1':
-					$sql = "SELECT U.name UserName, SUM(UA.steps) AS TotalSteps FROM activities AS UA, users AS U where U.id=UA.user_id group by UA.user_id order by TotalSteps desc\n". "\n". "";
+					$sql = "SELECT U.name UserName, SUM(UA.steps) AS TotalSteps FROM activities AS UA, users AS U where U.id=UA.user_id group by UA.user_id order by TotalSteps desc";
 					break;
 			case '2':
 					$sql = "SELECT U.name UserName, SUM(UA.steps) AS TotalSteps FROM activities AS UA, users AS U where U.id=UA.user_id and UA.date between date_sub(now(),INTERVAL 1 WEEK) and now() group by UA.user_id order by TotalSteps desc";
