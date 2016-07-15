@@ -12,21 +12,32 @@
 			<table class="table table-striped activity-table">													
 					<!-- Table Body -->					
 					{{--*/ $first = true /*--}}
+					{{--*/ $rank = 1 /*--}}
 					@foreach ($activities as $activity)
 						@if ($first == true)
-							<!-- Table Headings -->	
+							<!-- Table Headings -->
+							@if ($choice > 0 and $choice < 4) 
+								<th>Rank</th>
+							@endif
 							@foreach ($activity as $key => $col)							
 									<th>{{ $key }}</th>							
 							@endforeach
 							{{--*/ $first = false /*--}}
 						@endif						
 						<tr>
+						@if ($choice > 0 and $choice < 4) 
+							<td class="table-text">
+									<div>{{ $rank }}</div>
+							</td>
+							{{--*/ $rank = $rank + 1 /*--}}
+						@endif
 						@foreach ($activity as $adata)
 							<td class="table-text">
 								<div>{{ $adata }}</div>
 							</td>
 						@endforeach	
-						</tr>						
+						</tr>
+						
 					@endforeach					
 			</table>
 		</div>

@@ -15,7 +15,7 @@ class LeaderboardController extends Controller
     public function showLeaderboard($choice)
 	{				
 		$activities = App\Activity::showLeaderboard($choice);
-		return view('reports',['activities' => $activities]);
+		return view('reports',['activities' => $activities, 'choice' => $choice]);
 	}
 }
 
