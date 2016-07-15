@@ -48,11 +48,11 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">              
 				<!-- Left Side Of Navbar -->          
 				<ul class="nav navbar-nav">
-					 <li {{{ (Request::is('leaderboard/1') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/1') }}">OverAll</a></li>
-					 <li {{{ (Request::is('leaderboard/2') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/2') }}">7 days</a></li>
-					 <li {{{ (Request::is('leaderboard/3') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/3') }}">30 days</a></li> 
-					 <li {{{ (Request::is('leaderboard/4') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/4') }}">Weekly</a></li> 
-					 <li {{{ (Request::is('leaderboard/5') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/5') }}">Monthly</a></li>					 
+					 <li {{{ (Request::is('leaderboard/1') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/1') }}">OverAll Ranks</a></li>
+					 <li {{{ (Request::is('leaderboard/2') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/2') }}">7 days Ranks</a></li>
+					 <li {{{ (Request::is('leaderboard/3') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/3') }}">30 days Ranks</a></li> 
+					 <li {{{ (Request::is('leaderboard/4') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/4') }}">Weekly Toppers</a></li> 
+					 <li {{{ (Request::is('leaderboard/5') ? 'class=active' : '') }}}><a href="{{ url('/leaderboard/5') }}">Monthly Toppers</a></li>					 
 				</ul>
 
                 <!-- Right Side Of Navbar -->
@@ -77,7 +77,14 @@
             </div>
         </div>
     </nav>
-
+	
+	@if(Session::has('message'))
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Error:</strong> {{ Session::get('message', '') }}
+    </div>
+	@endif
+	
     @yield('content')
 
     <!-- JavaScripts -->
