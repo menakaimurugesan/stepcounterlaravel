@@ -20,7 +20,7 @@
 						Steps:
 						<input type="text" name="steps" id="activity-steps" class="form-control" size="5">                
 						<button type="submit" class="btn btn-default">
-							<i class="fa fa-plus"></i> Add Activity
+							<i class="fa fa-plus"></i> Add/Udpdate
 						</button>				
 				</form>
 			</div>

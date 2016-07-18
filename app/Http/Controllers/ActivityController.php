@@ -46,7 +46,7 @@ class ActivityController extends Controller
     {
 		$this->validate($request, ['date' => 'required',]);
 		$this->validate($request, ['steps' => 'required',]);
-		$request->user()->activities()->create(['date' => $request->date, 'steps' => $request->steps,]);
+		$request->user()->activities()->updateOrCreate(['date' => $request->date],['date' => $request->date, 'steps' => $request->steps,]);
 
 		return redirect('/activity');
     }
