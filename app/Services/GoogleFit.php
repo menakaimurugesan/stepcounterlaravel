@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Services;
-use Session;
 
+use Session;
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use Google_Client;
 use Google_Service_Fitness;
 use Carbon\Carbon;
 use Google_Service_Oauth2;
 use Illuminate\Support\Facades\Redirect;
-
 
 Class GoogleFit
 {	
@@ -21,7 +21,6 @@ Class GoogleFit
 		//$client_id = env('FIT_CLIENT_ID');
 		//$client_secret = env('FIT_CLIENT_SECRET');
 		
-		if ( ! session_id() ) @ session_start();
 		$redirect_uri =  'http://' . $_SERVER['HTTP_HOST'] . '/GoogleFit';
 				
 		$client = new Google_Client();
@@ -33,25 +32,22 @@ Class GoogleFit
 		$client->setRedirectUri($redirect_uri);
 		$client->addScope(Google_Service_Fitness::FITNESS_ACTIVITY_READ);
 		$client->addScope('https://www.googleapis.com/auth/userinfo.email');
-				
-		if (isset($_SESSION['access_token'])) 
-		{	
-			$service = new Google_Service_Fitness($client);
-			$google_oauthV2 = new Google_Service_Oauth2($client);	
 		
-			$client->setAccessToken($_SESSION['access_token']);				
+		if (isset($_GET['code'])) {
+			$client->authenticate($_GET['code']);			
+			$client->setAccessToken($client->getAccessToken());
+			
+			$service = new Google_Service_Fitness($client);
+			$google_oauthV2 = new Google_Service_Oauth2($client);			
 			
 			$guser = $google_oauthV2->userinfo->get();
-			print($guser['email']);
 			if ($guser['email'] != $request->user()->email)
 			{								
 				Session::put('message', 'Google email and Stepcount application email do not match!');
 				return;						
 			}
-			$_SESSION['gmailuser'] = $guser['email'];
-			$dataSources = $service->users_dataSources;
-			$dataSets = $service->users_dataSources_datasets;
-			$listDataSources = $dataSources->listUsersDataSources("me");					
+		
+			$dataSets = $service->users_dataSources_datasets;				
 			$endTime = strtotime("now");
 			
 			$period = '10';
@@ -59,7 +55,7 @@ Class GoogleFit
 			$startTime = strtotime('-'.$period.' day', $endTime);			
 			$data = [];	
 			$dataStreamId = "derived:com.google.step_count.delta:com.google.android.gms:estimated_steps";	
-			$listDatasets = $dataSets->get("me", $dataStreamId, $startTime.'000000000'.'-'.$endTime.'000000000');				
+			$listDatasets = $dataSets->get("me", $dataStreamId, $startTime.'000000000'.'-'.$endTime.'000000000');	
 			$step_count = 0;			
 			while($listDatasets->valid()) {					
 				$dataSet = $listDatasets->next();												
@@ -78,20 +74,15 @@ Class GoogleFit
 					}
 				}
 			}
-			return $data;
-		}
-		elseif (isset($_GET['code'])) {
-			$client->authenticate($_GET['code']);
-			$_SESSION['access_token'] = $client->getAccessToken();			
-			header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
-			die;
+			$client->revokeToken();
+			return $data;	
 		}
 		else 
 		{
 			$authUrl = $client->createAuthUrl();			
 			header('Location:'.filter_var($authUrl, FILTER_SANITIZE_URL));
 			die;
-		}	
+		}
 	}
 }
 ?>

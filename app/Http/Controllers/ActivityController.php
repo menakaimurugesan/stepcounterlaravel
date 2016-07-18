@@ -107,7 +107,6 @@ class ActivityController extends Controller
 		
 		if (!empty($data))
 		{
-			//print(json_encode($data));
 			foreach($data as $key => $value)
 			{				
 				$request->user()->activities()->updateOrCreate(['date' => $key],['date' => $key, 'steps' => $value,]);
@@ -118,8 +117,6 @@ class ActivityController extends Controller
 		{
 			Session::put('message', 'No data found for this period');
 		}
-		
-		unset($_SESSION['access_token']);
 		return redirect('/activity');
 	}
 }
