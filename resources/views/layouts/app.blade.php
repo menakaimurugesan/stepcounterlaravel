@@ -79,9 +79,9 @@
     </nav>
 	
 	@if(Session::has('message'))
-    <div class="alert alert-warning">
+    <div class="alert alert_information">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Error:</strong> {{ Session::get('message', '') }}
+    <strong> {{ Session::pull('message', '') }} </strong>
     </div>
 	@endif
 	

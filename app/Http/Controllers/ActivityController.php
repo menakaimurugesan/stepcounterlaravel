@@ -1,13 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Session;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Carbon\Carbon;
+use App\Services\GoogleFit;
 
 class ActivityController extends Controller
 {    	
+	//Authenticate users to access their own data
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+	
 	/**
      * Display a listing of the resource.
      *
@@ -88,4 +95,31 @@ class ActivityController extends Controller
     {
         //
     }
+	
+	public function retriveFromGoogleFit(Request $request, GoogleFit $googlefit)
+	{
+		session_start();
+		$data = [];
+		if (isset($_GET['period'])) {
+			$_SESSION['period_choice'] = $_GET['period'];
+		}
+		$data =  $googlefit->retriveFromGoogleFit($request);
+		
+		if (!empty($data))
+		{
+			//print(json_encode($data));
+			foreach($data as $key => $value)
+			{				
+				$request->user()->activities()->updateOrCreate(['date' => $key],['date' => $key, 'steps' => $value,]);
+			}
+			Session::put('message', 'Successfully retrieved data from GoogleFit');
+		}
+		elseif (empty(Session::get('message')))
+		{
+			Session::put('message', 'No data found for this period');
+		}
+		
+		unset($_SESSION['access_token']);
+		return redirect('/activity');
+	}
 }

@@ -18,6 +18,8 @@ use App\Http\Controllers\Controller;
 //Leaderboard routes...
 Route::get('leaderboard/{choice}', 'LeaderboardController@showLeaderboard');
 Route::get('/', function(){return view('welcome');});
+
+Route::get('/GoogleFit/{period?}','ActivityController@retriveFromGoogleFit');
 Route::Resource('activity','ActivityController');
 
 // Authentication routes...
