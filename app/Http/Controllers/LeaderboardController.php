@@ -7,11 +7,6 @@ use App;
 
 class LeaderboardController extends Controller
 {
-	//Authenticate users to access Leaderboard
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
     public function showLeaderboard($choice)
 	{				
 		$activities = App\Activity::showLeaderboard($choice);
